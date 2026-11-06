@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Visa Status Prediction Portal</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-900 min-h-screen text-slate-100 flex flex-col justify-between">
+
+    <!-- Header Section -->
+    <header class="w-full py-6 px-8 border-b border-white/10 flex justify-between items-center backdrop-blur-md bg-white/5">
+        <div class="flex items-center space-x-3">
+            <div class="bg-blue-600 p-2.5 rounded-xl shadow-lg shadow-blue-500/30">
+                <i class="fa-solid fa-passport text-white text-xl"></i>
+            </div>
+            <span class="text-xl font-bold tracking-wide text-white">USVisa <span class="text-blue-400">AI Predictor</span></span>
+        </div>
+        <div>
+            <a href="/train" class="px-4 py-2 text-sm font-medium bg-white/10 hover:bg-white/20 rounded-lg transition duration-200 border border-white/10 flex items-center space-x-2">
+                <i class="fa-solid fa-brain text-blue-400"></i>
+                <span>Retrain Model</span>
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container mx-auto px-4 py-10 max-w-4xl flex-grow">
+        
+        <!-- Hero Title -->
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">
+                US Visa Approval <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">Prediction System</span>
+            </h1>
+            <p class="text-slate-400 max-w-xl mx-auto text-sm md:text-base">
+                Fill in the applicant and employer credentials below to get real-time machine learning-powered visa status insights.
+            </p>
+        </div>
+
+        <!-- Result Banner (If Context Exists & Is Not Rendering) -->
+        <!-- Result Banner (If Context Exists & Is Not Rendering) -->
+        {% if context and context != "Rendering" %}
+            <div class="mb-8 p-6 rounded-2xl backdrop-blur-xl border shadow-2xl transition-all duration-300 transform scale-100 {{ 'bg-emerald-950/40 border-emerald-500/30 shadow-emerald-950/50 text-emerald-300' if context == 'Visa-approved' else 'bg-rose-950/40 border-rose-500/30 shadow-rose-950/50 text-rose-300' }}">
+                <div class="flex items-center space-x-4">
+                    <div class="p-3 rounded-full {{ 'bg-emerald-500/20 text-emerald-400' if context == 'Visa-approved' else 'bg-rose-500/20 text-rose-400' }}">
+                        {% if context == 'Visa-approved' %}
+                            <i class="fa-solid fa-circle-check text-2xl"></i>
+                        {% else %}
+                            <i class="fa-solid fa-circle-xmark text-2xl"></i>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-semibold text-white">Prediction Result</h2>
+                        <p class="text-sm tracking-wide mt-0.5 font-medium">
+                            Status: <span class="underline underline-offset-4 font-bold">{{ context }}</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Input Form Card -->
+        <div class="bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-6 md:p-10 shadow-2xl">
+            <form action="/" method="POST" class="space-y-6" id="predictionForm">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    
+                    <!-- Continent -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Continent</label>
+                        <select name="continent" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            <option value="" disabled selected>Select continent</option>
+                            <option value="Asia">Asia</option>
+                            <option value="Europe">Europe</option>
+                            <option value="North America">North America</option>
+                            <option value="South America">South America</option>
+                            <option value="Africa">Africa</option>
+                            <option value="Oceania">Oceania</option>
+                        </select>
+                    </div>
+
+                    <!-- Education of Employee -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Education of Employee</label>
+                        <select name="education_of_employee" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            <option value="" disabled selected>Select qualification</option>
+                            <option value="High School">High School</option>
+                            <option value="Bachelor's">Bachelor's</option>
+                            <option value="Master's">Master's</option>
+                            <option value="Doctorate">Doctorate</option>
+                        </select>
+                    </div>
+
+                    <!-- Has Job Experience -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Has Job Experience?</label>
+                        <select name="has_job_experience" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            <option value="" disabled selected>Select option</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+
+                    <!-- Requires Job Training -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Requires Job Training?</label>
+                        <select name="requires_job_training" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            <option value="" disabled selected>Select option</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+
+                    <!-- No of Employees -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Number of Employees</label>
+                        <input type="number" name="no_of_employees" placeholder="e.g. 1500" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                    </div>
+
+                    <!-- Company Age -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Company Age (Years)</label>
+                        <input type="number" name="company_age" placeholder="e.g. 15" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                    </div>
+
+                    <!-- Region of Employment -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Region of Employment</label>
+                        <select name="region_of_employment" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            <option value="" disabled selected>Select US Region</option>
+                            <option value="Northeast">Northeast</option>
+                            <option value="Midwest">Midwest</option>
+                            <option value="South">South</option>
+                            <option value="West">West</option>
+                            <option value="Island">Island</option>
+                        </select>
+                    </div>
+
+                    <!-- Prevailing Wage -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Prevailing Wage ($)</label>
+                        <input type="number" step="any" name="prevailing_wage" placeholder="e.g. 65000" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                    </div>
+
+                    <!-- Unit of Wage -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Unit of Wage</label>
+                        <select name="unit_of_wage" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            <option value="" disabled selected>Select time unit</option>
+                            <option value="Year">Year</option>
+                            <option value="Month">Month</option>
+                            <option value="Week">Week</option>
+                            <option value="Hour">Hour</option>
+                        </select>
+                    </div>
+
+                    <!-- Full Time Position -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-300 mb-2">Full Time Position?</label>
+                        <select name="full_time_position" required class="w-full bg-slate-900/60 border border-slate-700/60 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition">
+                            <option value="" disabled selected>Select option</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <!-- Submit Button -->
+                <div class="pt-6">
+                    <button type="submit" id="submitBtn" class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold py-4 px-6 rounded-xl shadow-lg shadow-blue-600/30 transition-all duration-200 flex items-center justify-center space-x-2 cursor-pointer">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        <span>Predict Visa Status</span>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center py-6 border-t border-white/10 text-xs text-slate-500 mt-10">
+        <p>&copy; 2026 US Visa Prediction MLOps Pipeline. Built with FastAPI & Tailwind CSS.</p>
+    </footer>
+
+    <!-- Loading Animation Script -->
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', function() {
+            const btn = document.getElementById('submitBtn');
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i><span>Analyzing data...</span>`;
+        });
+    </script>
+</body>
+</html>
