@@ -3,7 +3,7 @@ import sys
 from us_visa.cloud_storage.aws_storage import SimpleStorageService
 from us_visa.exception import USvisaException
 from us_visa.logger import logging
-from us_visa.entity.artifact_entity import ModelPusherArtifact, ModelEvaluationArtifact
+from us_visa.entity.artificat_entity import ModelPusherArtifact, ModelEvaluationArtifact
 from us_visa.entity.config_entity import ModelPusherConfig
 from us_visa.entity.s3_estimator import USvisaEstimator
 

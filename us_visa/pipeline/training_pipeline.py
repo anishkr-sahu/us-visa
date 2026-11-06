@@ -16,7 +16,7 @@ from us_visa.entity.config_entity import (DataIngestionConfig,
                                          ModelEvaluationConfig,
                                          ModelPusherConfig)
 
-from us_visa.entity.artifact_entity import (DataIngestionArtifact,
+from us_visa.entity.artificat_entity import (DataIngestionArtifact,
                                             DataValidationArtifact,
                                             DataTransformationArtifact,
                                             ModelTrainerArtifact,

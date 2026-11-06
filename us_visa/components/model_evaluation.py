@@ -1,5 +1,5 @@
 from us_visa.entity.config_entity import ModelEvaluationConfig
-from us_visa.entity.artifact_entity import ModelTrainerArtifact, DataIngestionArtifact, ModelEvaluationArtifact
+from us_visa.entity.artificat_entity import ModelTrainerArtifact, DataIngestionArtifact, ModelEvaluationArtifact
 from sklearn.metrics import f1_score
 from us_visa.exception import USvisaException
 from us_visa.constants import TARGET_COLUMN, CURRENT_YEAR
